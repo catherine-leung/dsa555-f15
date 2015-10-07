@@ -1,33 +1,19 @@
-
+#include "slist.h"
 template<class T>
 class Queue{
-	T* data_;
-	int maxSize_;
-	int currSize_;
-	void grow(){
-		T* tmp=new T[maxSize_*2];
-		for(int i=0;i<currSize_;i++){
-			tmp[i]=data_[i];
-		}
-		delete data_;
-		data_=tmp;
-		maxSize_=maxSize_*2;
-	}
+	SList<T> theQueue_;
 public:
-	Queue(max=100){
-		data_=new T[max];
-		maxSize_=max;
-		currSize_=0;
+	Queue():theQueue_(){
 	}
 	void enqueue(const T& dat){
-		if(currSize_ == maxSize_){
-			grow();
-		}
+		theQueue_.append(dat);
 		
 	}
 	void dequeue(){
+		theQueue_.rmFront();
 	}
-	const T& top(){
+	const T& front(){
+		return theQueue_.first();
 	}
-	bool isEmpty() const;
+	bool isEmpty() const{return theQueue_.first();}
 };
