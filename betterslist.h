@@ -4,17 +4,18 @@ using namespace std;
 
 template <class T>
 class SList{
-	Node<T>* first_;
-	Node<T>* last_;
-	void rrwork(Node<T>* curr);
 	struct Node{
 		T data_;
-		Node<T>* next_;
-		Node(const T& data=T{},Node<T>* next=nullptr){
+		Node* next_;
+		Node(const T& data=T{},Node* next=nullptr){
 			data_=data;
 			next_=next;
 		}
 	};
+	Node* first_;
+	Node* last_;
+	void rrwork(Node* curr);
+
 public:
 	class const_iterator{
 	friend SList<T>;
@@ -50,13 +51,42 @@ public:
 		}
 	};
 	class iterator : const_iterator{
+	protected:
+		friend SList<T>;
+
+		iterator(Node* p):const_iterator(p){}
+	public:
+		iterator():const_iterator(){
+		}
+		iterator operator++(){
+			//++p
+			this->curr_=this->curr_->next_;
+			return *this;
+		}
+		iterator operator++(int){
+			//p++
+			iterator old=*this;
+			this->curr_=this->curr_->next_;
+			return old;
+		}
+		bool operator==(iterator rhs){
+			return this->curr_==rhs.curr_;
+		}
+		bool operator!=(iterator rhs){
+			return this->curr_!=rhs.curr_;
+		}
+		T& operator*(){
+			return this->curr_->data_;
+		}
 
 	};
-	SList(){first_=last_=nullptr;}
-	const_iterator begin() const {return }
-	const_iterator end() const {return}
-	iterator begin(){}
-	iterator end(){}
+	SList(){
+		first_=last_=nullptr;
+	}
+	const_iterator begin() const {return const_iterator(first_);}
+	const_iterator end() const {return const_iterator();}
+	iterator begin(){return iterator(first_);}
+	iterator end(){return iterator();}
 	void insert(const T& data);
 	void print() const;
 	void append(const T& data);
@@ -69,8 +99,8 @@ public:
 //this function inserts data into the front
 //of the linked list
 template<class T>
-void SList<T>::insert(T data){
-	Node<T>* nn=new Node<T>(data,first_);
+void SList<T>::insert(const T& data){
+	Node* nn=new Node(data,first_);
 	first_=nn;
 	if(!last_){
 		last_=nn;
@@ -80,7 +110,7 @@ void SList<T>::insert(T data){
 template<class T>
 void SList<T>::rmFirst(){
 	if(first_){
-		Node<T>* rm=first_;
+		Node* rm=first_;
 		first_=first_->next_;
 		if(!first_){
 			last_=nullptr;
@@ -93,8 +123,8 @@ void SList<T>::rmFirst(){
 template<class T>
 void SList<T>::rmLast(){
 	if(first_){
-		Node<T>* rm=last_;
-		Node<T>* curr=first_;
+		Node* rm=last_;
+		Node* curr=first_;
 		if(rm !=curr){
 			while(curr->next_!=rm){
 				curr=curr->next_;
@@ -112,8 +142,8 @@ void SList<T>::rmLast(){
 
 //
 template<class T>
-void SList<T>::append(T data){
-	Node<T>* nn=new Node<T>(data);
+void SList<T>::append(const T& data){
+	Node* nn=new Node(data);
 	if(first_){
 		last_->next_ = nn;
 	}
@@ -126,9 +156,9 @@ void SList<T>::append(T data){
 
 template<class T>
 void SList<T>::reverse(){
-	Node<T>* prev;
-	Node<T>* curr;
-	Node<T>* next;
+	Node* prev;
+	Node* curr;
+	Node* next;
 	//if statement is true, list has at 
 	//least 2 nodes
 	if(first_!=last_){
@@ -152,9 +182,9 @@ void SList<T>::reverse(){
 //this function reverses a list starting
 //at node pointed to by curr
 template<class T>
-void SList<T>::rrwork(Node<T>* curr){
+void SList<T>::rrwork(Node* curr){
 	if(curr && curr->next_){
-		Node<T>* tmp=curr->next_;
+		Node* tmp=curr->next_;
 		//at least two nodes in list
 		rrwork(curr->next_);
 		tmp->next_=curr;
@@ -164,7 +194,7 @@ void SList<T>::rrwork(Node<T>* curr){
 template<class T>
 void SList<T>::recursiveReverse(){
 	if(first_){
-		Node<T>* tmp=first_;
+		Node* tmp=first_;
 		rrwork(first_);
 		first_=last_;
 		last_=tmp;
@@ -175,7 +205,7 @@ void SList<T>::recursiveReverse(){
 
 template<class T>
 void SList<T>::print() const{
-	Node<T>* curr=first_;
+	Node* curr=first_;
 	while(curr){
 		cout << curr->data_ << endl;
 		curr=curr->next_;

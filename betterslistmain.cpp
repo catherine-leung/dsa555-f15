@@ -1,10 +1,10 @@
-#include "slist.h"
+#include "betterslist.h"
 #include <iostream>
 using namespace std;
 
 int main(void){
 	SList<int> list;
-	SList<int>::const_iterator i;
+	SList<int>::iterator i;
 	list.insert(5);
 	list.insert(6);
 	list.insert(1);
@@ -14,5 +14,15 @@ int main(void){
 //	list.rmLast();
 	for(i=list.begin();i!=list.end();i++){
 		cout << *i << endl;
+
 	}
+	for(i=list.begin();i!=list.end();i++){
+		*i = *i + 1;
+		
+	}
+	for(i=list.begin();i!=list.end();i++){
+		cout << *i << endl;
+
+	}
+
 }
