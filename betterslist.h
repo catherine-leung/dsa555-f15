@@ -81,12 +81,14 @@ public:
 
 	};
 	SList(){
-		first_=last_=nullptr;
+		first_=new Node;
+		last_=new Node;
+		first_->next_=last_;
 	}
-	const_iterator begin() const {return const_iterator(first_);}
-	const_iterator end() const {return const_iterator();}
-	iterator begin(){return iterator(first_);}
-	iterator end(){return iterator();}
+	const_iterator begin() const {return const_iterator(first_->next_);}
+	const_iterator end() const {return const_iterator(last_);}
+	iterator begin(){return iterator(first_->next_);}
+	iterator end(){return iterator(last_);}
 	void insert(const T& data);
 	void print() const;
 	void append(const T& data);
@@ -100,21 +102,16 @@ public:
 //of the linked list
 template<class T>
 void SList<T>::insert(const T& data){
-	Node* nn=new Node(data,first_);
-	first_=nn;
-	if(!last_){
-		last_=nn;
-	}
+	Node* nn=new Node(data,first_->next_);
+	first_->next_=nn;
 }
 //remove first node from list
 template<class T>
 void SList<T>::rmFirst(){
-	if(first_){
-		Node* rm=first_;
-		first_=first_->next_;
-		if(!first_){
-			last_=nullptr;
-		}
+	if(first_->next != last_){
+		Node* rm=first_->next_;
+		first_->next_=rm->next_;
+
 		delete rm;
 	}
 }
@@ -122,20 +119,16 @@ void SList<T>::rmFirst(){
 //remove last node from list
 template<class T>
 void SList<T>::rmLast(){
-	if(first_){
-		Node* rm=last_;
-		Node* curr=first_;
-		if(rm !=curr){
-			while(curr->next_!=rm){
-				curr=curr->next_;
-			}
-			last_=curr;
-			last_->next_=nullptr;
+	if(first_->next_ != last_){
+		Node* rm;
+		Node* prev=first_;
+		Node* curr=first_->next_;
+		while(curr->next_!=last_){
+			prev=curr;
+			curr=curr->next_;
 		}
-		else{
-			first_=last_=nullptr;
-		}
-		delete rm;
+		prev->next_=last;
+		delete curr;
 	}
 
 }
@@ -144,13 +137,12 @@ void SList<T>::rmLast(){
 template<class T>
 void SList<T>::append(const T& data){
 	Node* nn=new Node(data);
-	if(first_){
-		last_->next_ = nn;
+	if(first_->next_==last_){
+		insert(data);		
 	}
 	else{
-		first_=nn;
-	}
-	last_=nn;
+		Node* prev=first_->next_;
+		while(prev->)	
 }
 
 
