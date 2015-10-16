@@ -133,7 +133,7 @@ void SList<T>::rmLast(){
 
 }
 
-//
+//Note now this is O(n)not O(1)
 template<class T>
 void SList<T>::append(const T& data){
 	Node* nn=new Node(data);
@@ -142,7 +142,11 @@ void SList<T>::append(const T& data){
 	}
 	else{
 		Node* prev=first_->next_;
-		while(prev->)	
+		while(prev->next_!=last_){
+			prev=prev->next_;
+		}
+		nn->next_=last_;
+		prev->next_=nn;	
 }
 
 
