@@ -4,7 +4,7 @@ using namespace std;
 
 int main(void){
 	SList<int> list;
-	SList<int>::iterator i;
+	SList<int>::const_iterator i;
 	list.insert(5);
 	list.insert(6);
 	list.insert(1);
@@ -12,14 +12,14 @@ int main(void){
 //	list.append(10);
 //	list.rmFirst();
 //	list.rmLast();
-	for(i=list.begin();i!=list.end();i++){
-		cout << *i << endl;
+//	for(i=list.begin();i!=list.end();i++){
+//		cout << *i << endl;
 
-	}
-	for(i=list.begin();i!=list.end();i++){
+//	}
+/*	for(i=list.begin();i!=list.end();i++){
 		*i = *i + 1;
 		
-	}
+	}*/
 	for(i=list.begin();i!=list.end();i++){
 		cout << *i << endl;
 

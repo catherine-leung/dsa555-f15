@@ -50,7 +50,7 @@ public:
 			return curr_->data_;
 		}
 	};
-	class iterator : const_iterator{
+	class iterator : public const_iterator{
 	protected:
 		friend SList<T>;
 
@@ -127,7 +127,7 @@ void SList<T>::rmLast(){
 			prev=curr;
 			curr=curr->next_;
 		}
-		prev->next_=last;
+		prev->next_=last_;
 		delete curr;
 	}
 
@@ -136,7 +136,7 @@ void SList<T>::rmLast(){
 //Note now this is O(n)not O(1)
 template<class T>
 void SList<T>::append(const T& data){
-	Node* nn=new Node(data);
+/*	Node* nn=new Node(data);
 	if(first_->next_==last_){
 		insert(data);		
 	}
@@ -146,7 +146,7 @@ void SList<T>::append(const T& data){
 			prev=prev->next_;
 		}
 		nn->next_=last_;
-		prev->next_=nn;	
+		prev->next_=nn;	*/
 }
 
 
