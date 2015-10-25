@@ -17,8 +17,12 @@
 #include <iostream>
 #include <cstdlib>
 using namespace std;
-#define VERBOSE 1
-const int numSearches=500;
+//The next line allows extra output
+//when things go wrong
+//change it to 1 to show a the list content (and what it should be)
+//or a number more than 1 for a lot of output (not recommended... too much)
+#define VERBOSE 0
+
 
 struct Record{
 	char word_[30];
@@ -74,7 +78,7 @@ bool cmpSortedLists(const SortedList<T>& list1,const SortedList<T>& list2);
 int main(void){
 	bool passtest=true;
 	int numPassed=0;
-	int cap = 500;
+	int cap = 20000;
 
 	SortedList<Record> recList;
 	SortedList<int> intList;
