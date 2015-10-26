@@ -25,7 +25,7 @@ using namespace std;
  Sumbit only your source file for the fill function when you are done.
 
   */
-bool fill(PixMap& image,Pixel fillColour,int x, int y);
+bool fill(PixMap& image, const Pixel& fillColour, int x, int y);
 
 int main(int argc, char* argv[]){
 	PixMap image("spiral.ppm");
