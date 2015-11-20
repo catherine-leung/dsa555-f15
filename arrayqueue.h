@@ -19,7 +19,7 @@ class Queue{
 		back_=currSize_;
 	}
 public:
-	Queue(max=100){
+	Queue(int max=100){
 		data_=new T[max];
 		maxSize_=max;
 		currSize_=0;
@@ -32,16 +32,18 @@ public:
 		}
 		data_[back_]=dat;		
 		currSize_++;
-		back_=(back+1)%maxSize_;
+		back_=(back_+1)%maxSize_;
 	}
 	void dequeue(){
 		if(currSize_){
-			front_=(front+1)%maxSize_;
+			front_=(front_+1)%maxSize_;
 			currSize_--;
 		}
 	}
 	const T& front(){
 		return data_[front_];
 	}
-	bool isEmpty() const;
+	bool isEmpty() const{
+		return currSize_==0;
+	}
 };
