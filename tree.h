@@ -117,8 +117,63 @@ public:
 		}
 		return curr;
 	}
-	void remove(const T& data){
+	//this function detaches the node pointed to by
+	//rt from the tree, if rt has no left child. 
+	//otherwise it detaches the left child instead.
+	Node<T>* detachIS(Node<T>*& rt){
+		Node<T>* rc;
+		if(rt->left_==nullptr){
+			rc=rt;
+			rt=rt->right_;
+		}
+		else{
+			rc=detachIS(rt->left_);
+		}
+		return rc;
+	}
+	void remove(Node<T>*& rt,const T& data){
+		if(rt){
+			if(rt->data_ == data){
+				if(rt->left_==nullptr && rt->right_==nullptr){
+					delete rt;
+					rt=nullptr;
+				}
+				else{
+					Node<T>* rm=rt;
+					if(rt->left_==nullptr){
+						//this if is true if we only 
+						//have right subtree
+						rt=rt->right_;
+					}
+					else if(rt->right_==nullptr){
+						//there is only left subtree;
+						rt=rt->left_;
+					}
+					else{
+						Node<T>* inorderSuccessor;
+						inorderSuccessor=detachIS(rt->right_);
+						inorderSuccessor->left_=rt->left_;
+						inorderSuccessor->right_=rt->right_;
+						rt=inorderSuccessor;
+					}
 
+					delete rm;
+				}
+			}
+			else{
+				if(data < rt->data_){
+					remove(rt->left_,data);
+				}
+				else{
+					remove(rt->right_,data);
+				}
+
+			}
+		}
+	}
+
+	void remove(const T& data){
+		remove(root_,data);
 	}
 
 	void inorderPrint() const{
@@ -140,7 +195,5 @@ public:
 			}
 		}
 	}
-	void remove(const T& data){
-		
-	}
+
 };
