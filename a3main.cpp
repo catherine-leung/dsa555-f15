@@ -212,7 +212,7 @@ int main(void){
 		numPassed++;
 		cout << "Test 5: check operator -- "<< endl;
 		recIt--;
-		if(*recIt==*recOld){
+		if(recIt==recOld){
 			cout << "good job, looks like you got can go backwards from end()" << endl;
 		}
 		recIt=recOld;
