@@ -1,7 +1,7 @@
 /****************************************/
 /*                                      */
 /*   This is the official tester for    */
-/*   assignment 1 question 2 of         */
+/*   assignment 2                       */
 /*   DSA555-f15                         */
 /*                                      */
 /*   Your code must pass all tests      */
