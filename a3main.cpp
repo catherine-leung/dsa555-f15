@@ -245,7 +245,7 @@ int main(void){
 	 	cout << "Testing for Assignment 1 completed successfully" << endl;
 	}
 	else{
-		cout << numPassed << " / 12 tests passed.  Looks like you still" << endl;
+		cout << numPassed << " / 5 tests passed.  Looks like you still" << endl;
 		cout << "have some work to do" << endl;
 	}
 	return 0;
