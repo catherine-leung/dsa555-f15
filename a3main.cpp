@@ -4,6 +4,8 @@
 /*   assignment 2                       */
 /*   DSA555-f15                         */
 /*                                      */
+/*   V 1.1 : fixed duplicate data bug   */
+/*                                      */
 /*   Your code must pass all tests      */
 /*   on matrix as I will use that for   */
 /*   testing                            */
@@ -67,7 +69,7 @@ template <class T>
 void mergeSort(T arr[],T tmp[],int start,int end);
 template <class T>
 void mergeSort(T arr[],int size);
-
+int search(int key,int arr[],int size);
 int main(void){
 	bool passtest=true;
 	int numPassed=0;
@@ -113,7 +115,11 @@ int main(void){
 	mergeSort(mirror,recCap);
 
 	for(int i=0;i<cap;i++){
-		intMirror[i]=intData[i]=rand();
+		int randomNumber= rand();
+		while(search(randomNumber,intData,i+1)!=-1){
+			randomNumber=rand();
+		}
+		intMirror[i]=intData[i]=randomNumber;
 	}
 	mergeSort(intMirror,cap);
 
@@ -309,5 +315,14 @@ void mergeSort(T arr[],int size){
 	delete [] tmp;
 }
 
+int search(int key,int arr[],int size){
+	int rc=-1;
+	for(int i=0;rc==-1 && i<size;i++){
+		if(key==arr[i]){
+			rc=i;
+		}
+	}
+	return rc;
+}
 
 
