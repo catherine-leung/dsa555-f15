@@ -159,12 +159,20 @@ int main(void){
 			passtest=false;
 			cout << "Your tree is not as it should be or " << endl;
 			cout << "iterator is not going through it correctly"  << endl;
-#if VERBOSE == 1
+#if VERBOSE >= 1
 			auto it=recTree.begin();
 			cout << "The following is a listing of your tree vs correct" << endl;
 			cout << "your tree  --->   correct value"  << endl;
-			for(int i=0;i<recCap-1;i++){
+			for(int i=0;i<recCap-1;i++,*it++){
 				cout << *it << " ---> " << mirror[i] << endl;
+			}
+#endif
+#if VERBOSE > 1
+			auto it2=intTree.begin();
+			cout << "The following is a listing of your int tree vs correct" << endl;
+			cout << "your tree  --->   correct value"  << endl;
+			for(int i=0;i<cap-1;i++,*it2++){
+				cout << *it2 << " ---> " << intMirror[i] << endl;
 			}
 #endif
 		}
@@ -248,7 +256,7 @@ int main(void){
 		numPassed++;
 	}
  	if(numPassed == 5){
-	 	cout << "Testing for Assignment 1 completed successfully" << endl;
+	 	cout << "Testing for Assignment 3 completed successfully" << endl;
 	}
 	else{
 		cout << numPassed << " / 5 tests passed.  Looks like you still" << endl;
